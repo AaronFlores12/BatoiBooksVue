@@ -30,6 +30,7 @@ export default {
   <div>
     <img :src="logoBatoi" alt="batoiLogo" />
     <h1>BatoiBooks</h1>
+
     <AppMenu></AppMenu>
     <AppMessages></AppMessages>
     <BooksList></BooksList>
