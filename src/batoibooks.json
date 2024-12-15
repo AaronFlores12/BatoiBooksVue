@@ -2138,19 +2138,19 @@
     {
       "id": "146e",
       "moduleCode": "0014",
-      "publisher": "adw",
-      "price": "12",
-      "pages": "12",
+      "publisher": "xdhola44444",
+      "price": 122222,
+      "pages": 121,
       "status": "Nuevo",
       "comments": "dwa"
     },
     {
       "id": "3d44",
       "moduleCode": "0014",
-      "publisher": "adw",
+      "publisher": "adwdsadsa",
       "price": "12",
       "pages": "12",
-      "status": "Nuevo",
+      "status": "Viejo",
       "comments": "dwa"
     },
     {
@@ -2185,7 +2185,7 @@
       "moduleCode": "0013",
       "publisher": "dwadwa",
       "price": "123123",
-      "pages": "321321",
+      "pages": 321321222222,
       "status": "Nuevo",
       "comments": "dwadwa"
     },
@@ -2197,24 +2197,6 @@
       "pages": "777777",
       "status": "Viejo",
       "comments": "dwadawdaw"
-    },
-    {
-      "id": "c779",
-      "moduleCode": "0013",
-      "publisher": "dwadwa",
-      "price": "1221",
-      "pages": "2121",
-      "status": "Viejo",
-      "comments": "dwadwa"
-    },
-    {
-      "id": "9fd6",
-      "moduleCode": "0014",
-      "publisher": "dwadwa",
-      "price": "21312",
-      "pages": "321312",
-      "status": "Nuevo",
-      "comments": "dwadaw"
     }
   ]
 }

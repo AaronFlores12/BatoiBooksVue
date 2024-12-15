@@ -20,6 +20,9 @@ export default {
             if (confirm("Quieres borrar el libro")) {
                 this.$emit('deleteBook', this.book.id)
             }
+        },
+        editBook() {
+            this.$router.push({ name: 'AddBook', params: { id: this.book.id } })
         }
     }
 }
@@ -40,7 +43,7 @@ export default {
         <button class="add">
             <span class="material-icons">add_shopping_cart</span>
         </button>
-        <button class="edit">
+        <button @click="editBook" class="edit">
             <span class="material-icons">edit</span>
         </button>
         <button @click="removeBook" class="delete">

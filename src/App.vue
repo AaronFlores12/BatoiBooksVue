@@ -5,6 +5,7 @@ import AppMessages from './components/AppMessages.vue'
 import BooksList from './components/BooksList.vue'
 import AddBook from './components/AddBook.vue'
 import AppAbout from './components/AppAbout.vue'
+import AppCart from './components/AppCart.vue'
 import { store } from './store';
 export default {
   components: {
@@ -13,6 +14,7 @@ export default {
     BooksList,
     AddBook,
     AppAbout,
+    AppCart
   },
   data() {
     return {
@@ -33,9 +35,7 @@ export default {
 
     <AppMenu></AppMenu>
     <AppMessages></AppMessages>
-    <BooksList></BooksList>
-    <AddBook></AddBook>
-    <AppAbout></AppAbout>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { addDBBook, removeDBBook, getDBBooks, getDBModules } from './api.js';
+import { addDBBook, removeDBBook, getDBBooks, getDBModules, changeDBBook, getDBBook } from './api.js';
 
 export const store = {
     state: reactive({
@@ -50,6 +50,22 @@ export const store = {
             this.state.messages.splice(index, 1);
         } catch (error) {
             this.state.messages.push(`Error removing message: ${error.message}`);
+        }
+    },
+    async changeDBBook(book) {
+        try {
+            const newBook = await changeDBBook(book);
+            const index = this.state.books.findIndex(b => b.id === newBook.id);
+            store.state.books.splice(index, 1, newBook);
+        } catch (error) {
+            this.state.messages.push(`Error changing book: ${error.message}`);
+        }
+    },
+    getDBBook(id) {
+        try {
+            return getDBBook(id);
+        } catch (error) {
+            this.state.messages.push(`Error fetching book: ${error.message}`);
         }
     }
 };
