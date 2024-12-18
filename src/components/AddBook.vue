@@ -1,13 +1,9 @@
 <script>
-import { store } from '@/store';
+import { useStore } from '../stores/piniaStore'
+import { mapState, mapActions } from 'pinia'
 export default {
     computed: {
-        books() {
-            return store.state.books;
-        },
-        modules() {
-            return store.state.modules;
-        }
+        ...mapState(useStore, ['books', 'modules']),
     },
     data() {
         return {
@@ -16,11 +12,12 @@ export default {
         };
     },
     methods: {
+        ...mapActions(useStore, ['changeDBBook', 'addBook', 'getDBBook']),
         async addOrUpdateBook() {
             if (this.isEditing) {
-                await store.changeDBBook(this.book);
+                await this.changeDBBook(this.book);
             } else {
-                await store.addBook(this.book);
+                await this.addBook(this.book);
             }
             this.book = {};
             this.isEditing = false;
@@ -30,13 +27,21 @@ export default {
             const bookId = this.$route.params.id;
             if (bookId) {
                 this.isEditing = true;
-                const book = await store.getDBBook(bookId);
+                const book = await this.getDBBook(bookId);
                 this.book = book;
+            } else {
+                this.isEditing = false;
+                this.book = {};
             }
         }
     },
     mounted() {
         this.loadForm();
+    },
+    watch: {
+        $route () {
+            this.loadForm();
+        }
     }
 };
 </script>

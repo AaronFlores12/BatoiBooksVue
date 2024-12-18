@@ -2154,15 +2154,6 @@
       "comments": "dwa"
     },
     {
-      "id": "5657",
-      "moduleCode": "0014",
-      "publisher": "adw",
-      "price": "12",
-      "pages": "12",
-      "status": "Nuevo",
-      "comments": "dwa"
-    },
-    {
       "id": "40ca",
       "moduleCode": "0014",
       "publisher": "dwa",
@@ -2190,13 +2181,13 @@
       "comments": "dwadwa"
     },
     {
-      "id": "b954",
+      "id": "f40e",
       "moduleCode": "0013",
-      "publisher": "k",
-      "price": "77777",
-      "pages": "777777",
-      "status": "Viejo",
-      "comments": "dwadawdaw"
+      "publisher": "123",
+      "price": 123,
+      "pages": 123,
+      "status": "Nuevo",
+      "comments": "1234444"
     }
   ]
 }

@@ -6,7 +6,8 @@ import BooksList from './components/BooksList.vue'
 import AddBook from './components/AddBook.vue'
 import AppAbout from './components/AppAbout.vue'
 import AppCart from './components/AppCart.vue'
-import { store } from './store';
+import { useStore } from './stores/piniaStore'
+import { mapActions } from 'pinia'
 export default {
   components: {
     AppMenu,
@@ -21,9 +22,12 @@ export default {
       logoBatoi
     }
   },
+  methods: {
+    ...mapActions(useStore, ['getBooks', 'getModules'])
+  },
   mounted() {
-    store.getBooks(),
-      store.getModules()
+    this.getBooks(),
+    this.getModules()
   }
 }
 </script>

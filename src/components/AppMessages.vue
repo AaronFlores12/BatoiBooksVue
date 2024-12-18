@@ -1,14 +1,14 @@
 <script>
-import { store } from '@/store';
+import { useStore } from '../stores/piniaStore'
+import { mapState, mapActions } from 'pinia'
 export default {
     computed: {
-        messages() {
-            return store.state.messages
-        }
+        ...mapState(useStore, ['messages']),
     },
     methods: {
+        ...mapActions(useStore, ['removeMessage']),
         removeMessage(index) {
-            store.removeMessage(index)
+            this.removeMessage(index)
         }
     }
 }

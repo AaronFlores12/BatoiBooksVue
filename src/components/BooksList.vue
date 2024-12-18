@@ -1,5 +1,6 @@
 <script>
-import { store } from '@/store';
+import { useStore } from '../stores/piniaStore'
+import { mapState, mapActions } from 'pinia'
 import BookItem from './BookItem.vue'
 
 export default {
@@ -7,13 +8,15 @@ export default {
         BookItem
     },
     computed: {
-        books() {
-            return store.state.books
-        }
+        ...mapState(useStore, ['books']),
     },
     methods: {
-        removeBook(id) {
-            store.removeBook(id)
+        ...mapActions(useStore, ['removeBook', 'addBookToCart']),
+        editBook() {
+            this.$router.push({ name: 'AddBook', params: { id: this.book.id } })
+        },
+        addBook(book) {
+            this.addBookToCart(book);
         }
     }
 }
@@ -21,6 +24,16 @@ export default {
 
 <template>
     <div id="list" class="books-container">
-        <BookItem v-for="book in books" :id="book.id" :book="book" @deleteBook="removeBook"></BookItem>
+        <BookItem v-for="book in books" :id="book.id" :book="book">
+            <button @click="addBook(book)" class="add">
+                <span class="material-icons">add_shopping_cart</span>
+            </button>
+            <button @click="editBook" class="edit">
+                <span class="material-icons">edit</span>
+            </button>
+            <button @click="removeBook(book.id)" class="delete">
+                <span class="material-icons">delete</span>
+            </button>
+        </BookItem>
     </div>
 </template>
