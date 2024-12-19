@@ -23,11 +23,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useStore, ['getBooks', 'getModules'])
+    ...mapActions(useStore, ['getBooks', 'getModules','getCart'])
   },
   mounted() {
     this.getBooks(),
-    this.getModules()
+    this.getModules(),
+    this.getCart()
   }
 }
 </script>

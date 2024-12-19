@@ -2130,7 +2130,7 @@
       "id": "fd04",
       "moduleCode": "0014",
       "publisher": "adw",
-      "price": "12",
+      "price": 11.83,
       "pages": "12",
       "status": "Nuevo",
       "comments": "dwa"
@@ -2139,7 +2139,7 @@
       "id": "146e",
       "moduleCode": "0014",
       "publisher": "xdhola44444",
-      "price": 122222,
+      "price": 1.24,
       "pages": 121,
       "status": "Nuevo",
       "comments": "dwa"
@@ -2148,7 +2148,7 @@
       "id": "3d44",
       "moduleCode": "0014",
       "publisher": "adwdsadsa",
-      "price": "12",
+      "price": 11.45,
       "pages": "12",
       "status": "Viejo",
       "comments": "dwa"
@@ -2157,7 +2157,7 @@
       "id": "40ca",
       "moduleCode": "0014",
       "publisher": "dwa",
-      "price": "123",
+      "price": 122.74,
       "pages": "123",
       "status": "Viejo",
       "comments": "dwa"
@@ -2166,7 +2166,7 @@
       "id": "5002",
       "moduleCode": "0047",
       "publisher": "dwadwadwa",
-      "price": "1212",
+      "price": 1211.87,
       "pages": "1212",
       "status": "Nuevo",
       "comments": "dwadwa"
@@ -2175,19 +2175,19 @@
       "id": "9525",
       "moduleCode": "0013",
       "publisher": "dwadwa",
-      "price": "123123",
+      "price": 123122.81,
       "pages": 321321222222,
       "status": "Nuevo",
       "comments": "dwadwa"
     },
     {
-      "id": "f40e",
-      "moduleCode": "0013",
-      "publisher": "123",
-      "price": 123,
-      "pages": 123,
-      "status": "Nuevo",
-      "comments": "1234444"
+      "id": "29b9",
+      "moduleCode": "0047",
+      "publisher": "dwadaw",
+      "price": 0.79,
+      "pages": 3,
+      "status": "Viejo",
+      "comments": "dwadaw"
     }
   ]
 }

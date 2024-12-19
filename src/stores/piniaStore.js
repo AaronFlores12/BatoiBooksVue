@@ -76,7 +76,13 @@ export const useStore = defineStore('store', {
         },
         addBookToCart(book) {
             try {
-                this.cart.push(book);
+                if (this.cart.some(b => b.id === book.id)) {
+                    this.messages.push("Book already in cart");
+                    return;
+                } else {
+                    this.cart.push(book);
+                    localStorage.setItem('cart', JSON.stringify(this.cart));
+                }
             } catch (error) {
                 this.messages.push(`Error adding book to cart: ${error.message}`);
             }
@@ -84,8 +90,34 @@ export const useStore = defineStore('store', {
         removeBookFromCart(book) {
             try {
                 this.cart.splice(this.cart.indexOf(book), 1);
+                localStorage.setItem('cart', JSON.stringify(this.cart));
             } catch (error) {
                 this.messages.push(`Error removing book from cart: ${error.message}`);
+            }
+        },
+        buyBooks() {
+            try {
+                alert("Books bought successfully!");
+                this.cart = [];
+                localStorage.removeItem('cart');
+            } catch (error) {
+                this.messages.push(`Error buying books: ${error.message}`);
+            }
+        },
+        removeBooksFromCart() {
+            try {
+                alert("Books removed successfully!");
+                this.cart = [];
+                localStorage.removeItem('cart');
+            } catch (error) {
+                this.messages.push(`Error removing books from cart: ${error.message}`);
+            }
+        },
+        getCart() {
+            try {
+                this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+            } catch (error) {
+                this.messages.push(`Error getting cart: ${error.message}`);
             }
         }
     }

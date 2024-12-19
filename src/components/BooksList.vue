@@ -8,15 +8,21 @@ export default {
         BookItem
     },
     computed: {
-        ...mapState(useStore, ['books']),
+        ...mapState(useStore, ['books', 'cart']),
+        totalBooks() {
+            return this.books.length;
+        }
     },
     methods: {
         ...mapActions(useStore, ['removeBook', 'addBookToCart']),
-        editBook() {
-            this.$router.push({ name: 'AddBook', params: { id: this.book.id } })
+        editBook(id) {
+            this.$router.push({ name: 'AddBook', params: { id: id } })
         },
         addBook(book) {
             this.addBookToCart(book);
+        },
+        bookInCart(book) {
+            return !this.cart.find(libro => libro.id === book.id)
         }
     }
 }
@@ -25,10 +31,10 @@ export default {
 <template>
     <div id="list" class="books-container">
         <BookItem v-for="book in books" :id="book.id" :book="book">
-            <button @click="addBook(book)" class="add">
+            <button v-if="bookInCart(book)" @click="addBook(book)" class="add">
                 <span class="material-icons">add_shopping_cart</span>
             </button>
-            <button @click="editBook" class="edit">
+            <button @click="editBook(book.id)" class="edit">
                 <span class="material-icons">edit</span>
             </button>
             <button @click="removeBook(book.id)" class="delete">
@@ -36,4 +42,5 @@ export default {
             </button>
         </BookItem>
     </div>
+    <h2>Total de libros: {{ totalBooks }}</h2>
 </template>
