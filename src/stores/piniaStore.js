@@ -122,14 +122,19 @@ export const useStore = defineStore('store', {
         },
         searchBookModuleInBooks(book) {
             try {
-                const existingBook = this.books.find(b => b.moduleCode === book.moduleCode);
-                if (existingBook) {
-                    return true
+                const conflictingBook = this.books.find(b =>
+                    b.moduleCode === book.moduleCode &&
+                    b.userId === book.userId &&
+                    b.id !== book.id
+                );
+                if (conflictingBook) {
+                    return false;
                 }
-                return false
+                return true;
             } catch (error) {
                 this.messages.push(`Error searching book in books: ${error.message}`);
             }
         }
+
     }
 })

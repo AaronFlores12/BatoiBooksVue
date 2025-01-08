@@ -33,15 +33,14 @@ export default {
         ...mapActions(useStore, ['changeDBBook', 'addBook', 'getDBBook', 'searchBookModuleInBooks']),
         async addOrUpdateBook() {
             const canModify = this.searchBookModuleInBooks(this.book);
-            if (canModify) {
-                alert("No puedes realizar acciones sobre libros con modulos iguales");
+            if (!canModify) {
+                alert("No se puede editar este libro porque ya existe un conflicto con otro libro.");
                 return;
+            }
+            if (this.isEditing) {
+                await this.changeDBBook(this.book);
             } else {
-                if (this.isEditing) {
-                    await this.changeDBBook(this.book);
-                } else {
-                    await this.addBook(this.book);
-                }
+                await this.addBook(this.book);
             }
             this.book = {};
             this.isEditing = false;
@@ -55,7 +54,7 @@ export default {
                 this.book = book;
             } else {
                 this.isEditing = false;
-                this.book = {};
+                this.book = { userId: 1 };
             }
         }
     },

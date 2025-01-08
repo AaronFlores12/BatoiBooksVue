@@ -2190,11 +2190,13 @@
       "comments": "dwadaw"
     },
     {
-      "id": "92b3",
-      "moduleCode": "0012",
-      "publisher": "k",
-      "price": 0.01,
+      "id": "1871",
+      "userId": 1,
+      "moduleCode": "0045",
+      "publisher": "1",
+      "price": 1,
       "pages": 1,
+      "comments": "1",
       "status": "Viejo"
     }
   ]
