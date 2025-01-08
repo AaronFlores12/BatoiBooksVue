@@ -1,28 +1,52 @@
 <script>
-import { useStore } from '../stores/piniaStore'
-import { mapState, mapActions } from 'pinia'
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import { useStore } from '../stores/piniaStore';
+import { mapState, mapActions } from 'pinia';
+
 export default {
+    name: 'BookForm',
+    components: {
+        Field,
+        Form,
+        ErrorMessage
+    },
     computed: {
         ...mapState(useStore, ['books', 'modules']),
     },
     data() {
+        const schema = yup.object({
+            moduleCode: yup.string().required('Módulo es obligatorio'),
+            publisher: yup.string().required('Editorial es obligatoria'),
+            price: yup.number().required('Precio es obligatorio').min(0, 'El precio debe ser mayor o igual a 0'),
+            pages: yup.number().required('Páginas es obligatorio').min(0, 'Las páginas deben ser mayor o igual a 0').integer('Las páginas deben ser un número entero'),
+            status: yup.string().required('Estado es obligatorio'),
+        });
+
         return {
             book: {},
-            isEditing: false
+            isEditing: false,
+            schema,
         };
     },
     methods: {
-        ...mapActions(useStore, ['changeDBBook', 'addBook', 'getDBBook']),
+        ...mapActions(useStore, ['changeDBBook', 'addBook', 'getDBBook', 'searchBookModuleInBooks']),
         async addOrUpdateBook() {
-            if (this.isEditing) {
-                await this.changeDBBook(this.book);
+            const canModify = this.searchBookModuleInBooks(this.book);
+            if (canModify) {
+                alert("No puedes realizar acciones sobre libros con modulos iguales");
+                return;
             } else {
-                await this.addBook(this.book);
+                if (this.isEditing) {
+                    await this.changeDBBook(this.book);
+                } else {
+                    await this.addBook(this.book);
+                }
             }
             this.book = {};
             this.isEditing = false;
-            this.$router.push('/'); 
-        }, 
+            this.$router.push('/');
+        },
         async loadForm() {
             const bookId = this.$route.params.id;
             if (bookId) {
@@ -39,7 +63,7 @@ export default {
         this.loadForm();
     },
     watch: {
-        $route () {
+        $route() {
             this.loadForm();
         }
     }
@@ -48,45 +72,49 @@ export default {
 
 <template>
     <div id="form">
-        <form @submit.prevent="addOrUpdateBook" id="bookForm">
-            <label id="titulo" for="titulo">
-                {{ isEditing ? "Editar Libro" : "Añadir Libro" }}
-            </label>
-            
+        <h1>{{ isEditing ? "Editar Libro" : "Añadir Libro" }}</h1>
+        <Form @submit="addOrUpdateBook" :validation-schema="schema">
             <div>
-                <label>Id: </label>
-                <input id="id" type="text" v-model="book.id" disabled>
+                <label for="id">Id:</label>
+                <Field id="id" name="id" v-model="book.id" type="text" disabled />
             </div>
-            
+
             <div>
                 <label for="id-module">Módulo:</label>
-                <select id="id-module" class="modulo-id" v-model="book.moduleCode" required>
-                    <option value="" disabled>Seleccionar Modulo</option>
-                    <option v-for="module in modules" :value="module.code">{{ module.cliteral }}</option>
-                </select>
+                <Field as="select" name="moduleCode" v-model="book.moduleCode" id="id-module">
+                    <option value="" disabled>Seleccionar Módulo</option>
+                    <option v-for="module in modules" :key="module.code" :value="module.code">
+                        {{ module.cliteral }}
+                    </option>
+                </Field>
+                <ErrorMessage name="moduleCode" class="error" />
             </div>
 
             <div>
                 <label for="publisher">Editorial:</label>
-                <input type="text" id="publisher" v-model="book.publisher" required>
+                <Field name="publisher" v-model="book.publisher" type="text" id="publisher" />
+                <ErrorMessage name="publisher" class="error" />
             </div>
 
             <div>
                 <label for="price">Precio:</label>
-                <input type="number" id="price" v-model="book.price" required min="0" step="0.01">
+                <Field name="price" v-model="book.price" type="number" id="price" step="0.01" />
+                <ErrorMessage name="price" class="error" />
             </div>
 
             <div>
                 <label for="pages">Páginas:</label>
-                <input type="number" id="pages" v-model="book.pages" required min="0" step="1">
+                <Field name="pages" v-model="book.pages" type="number" id="pages" step="1" />
+                <ErrorMessage name="pages" class="error" />
             </div>
 
             <div>
                 <label>Estado:</label>
-                <input type="radio" id="new" value="Nuevo" v-model="book.status" name="status" required>
+                <Field name="status" type="radio" value="Nuevo" v-model="book.status" />
                 <label for="new">Nuevo</label>
-                <input type="radio" id="old" value="Viejo" v-model="book.status" name="status" required>
+                <Field name="status" type="radio" value="Viejo" v-model="book.status" />
                 <label for="old">Viejo</label>
+                <ErrorMessage name="status" class="error" />
             </div>
 
             <div>
@@ -94,10 +122,16 @@ export default {
                 <textarea id="comments" v-model="book.comments"></textarea>
             </div>
 
-            <button id="boton-add" type="submit">
-                {{ isEditing ? "Guardar Cambios" : "Añadir" }}
-            </button>
-            <button type="reset" >Reset</button>
-        </form>
+            <button type="submit">{{ isEditing ? "Guardar Cambios" : "Añadir" }}</button>
+            <button type="reset">Reset</button>
+        </Form>
     </div>
 </template>
+
+<style scoped>
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0.25em;
+}
+</style>

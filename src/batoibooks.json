@@ -2147,7 +2147,7 @@
     {
       "id": "3d44",
       "moduleCode": "0014",
-      "publisher": "adwdsadsa",
+      "publisher": "dwadawd",
       "price": 11.45,
       "pages": "12",
       "status": "Viejo",
@@ -2182,12 +2182,20 @@
     },
     {
       "id": "29b9",
-      "moduleCode": "0047",
+      "moduleCode": "0013",
       "publisher": "dwadaw",
       "price": 0.79,
       "pages": 3,
       "status": "Viejo",
       "comments": "dwadaw"
+    },
+    {
+      "id": "92b3",
+      "moduleCode": "0012",
+      "publisher": "k",
+      "price": 0.01,
+      "pages": 1,
+      "status": "Viejo"
     }
   ]
 }

@@ -119,6 +119,17 @@ export const useStore = defineStore('store', {
             } catch (error) {
                 this.messages.push(`Error getting cart: ${error.message}`);
             }
+        },
+        searchBookModuleInBooks(book) {
+            try {
+                const existingBook = this.books.find(b => b.moduleCode === book.moduleCode);
+                if (existingBook) {
+                    return true
+                }
+                return false
+            } catch (error) {
+                this.messages.push(`Error searching book in books: ${error.message}`);
+            }
         }
     }
 })
